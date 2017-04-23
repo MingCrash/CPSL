@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="MainPageTableViewCellID" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellIdentifier" id="KGk-i7-Jjw" customClass="MainPageTableViewCell" customModule="CPSL_FlightSchedule" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3yx-VH-eHl">
+                        <rect key="frame" x="20" y="10" width="23.5" height="23.5"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="3yx-VH-eHl" secondAttribute="height" multiplier="1:1" id="QDG-rs-f4l"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h93-FL-ZLt">
+                        <rect key="frame" x="63.5" y="0.0" width="236.5" height="43.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <gestureRecognizers/>
+                <constraints>
+                    <constraint firstItem="3yx-VH-eHl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="GxC-9O-bNs"/>
+                    <constraint firstAttribute="bottom" secondItem="h93-FL-ZLt" secondAttribute="bottom" id="Ikd-JD-Kt9"/>
+                    <constraint firstAttribute="trailing" secondItem="h93-FL-ZLt" secondAttribute="trailing" constant="20" id="bop-WP-DXa"/>
+                    <constraint firstItem="3yx-VH-eHl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="g9O-cF-LbB"/>
+                    <constraint firstAttribute="bottom" secondItem="3yx-VH-eHl" secondAttribute="bottom" constant="10" id="h4R-xu-k9k"/>
+                    <constraint firstItem="h93-FL-ZLt" firstAttribute="leading" secondItem="3yx-VH-eHl" secondAttribute="trailing" constant="20" id="j9a-Lf-Ehy"/>
+                    <constraint firstItem="h93-FL-ZLt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="owk-AQ-FCd"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="tintColor" red="0.49234718084335327" green="0.58103853464126587" blue="0.4987519383430481" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
+            <connections>
+                <outlet property="images" destination="3yx-VH-eHl" id="sqI-n8-5pH"/>
+                <outlet property="label" destination="h93-FL-ZLt" id="8sY-Iy-bEC"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

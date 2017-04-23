@@ -1,0 +1,6 @@
+framework module Pods_CPSL_FlightScheduleTests {
+  umbrella header "Pods-CPSL_FlightScheduleTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
