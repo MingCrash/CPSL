@@ -189,9 +189,9 @@
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3Mh-ez-3QF" userLabel="Flight Result Arrival">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="438"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="1" green="0.31070617210000001" blue="0.34861419199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="FlightScheduleCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlightArrivalResultResuseID" rowHeight="70" id="rXH-Vd-R4g" customClass="FlightResultTableViewCell" customModule="CPSL_FlightSchedule" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlightArrivalResultResuseID" rowHeight="70" id="rXH-Vd-R4g" customClass="FlightResultTableViewCell" customModule="CPSL_FlightSchedule" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rXH-Vd-R4g" id="IEs-tY-oHd">
@@ -248,7 +248,62 @@
                                             </tableView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dn2-1p-xcC" userLabel="Flight Result Departure">
                                                 <rect key="frame" x="375" y="0.0" width="375" height="438"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlightDepartureResultResuseID" rowHeight="70" id="TNP-4T-aL5" customClass="FlightResultTableViewCell" customModule="CPSL_FlightSchedule" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="28" width="375" height="70"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TNP-4T-aL5" id="2bY-lI-7y8">
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95c-X2-6w5">
+                                                                    <rect key="frame" x="10" y="0.0" width="49" height="22"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                    <color key="textColor" red="0.50538247820000004" green="0.54599815610000002" blue="0.5026490092" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CX636" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WQ4-6g-pB7">
+                                                                    <rect key="frame" x="79" y="0.0" width="60" height="22"/>
+                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CGK (Cengkareng) HAN(Hanoi)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mvc-V0-OkZ">
+                                                                    <rect key="frame" x="164" y="0.0" width="140" height="64.5"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="140" id="Lrh-UI-v40"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                    <color key="textColor" red="0.34462887050000002" green="0.3611444533" blue="0.34077078100000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Departure 00:43" textAlignment="right" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PaG-r2-C06">
+                                                                    <rect key="frame" x="282" y="0.0" width="83" height="43"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="83" id="Fcv-9Q-A91"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                    <color key="textColor" red="0.95775884389999999" green="0.72035682199999995" blue="0.34173539279999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="mvc-V0-OkZ" firstAttribute="leading" secondItem="WQ4-6g-pB7" secondAttribute="trailing" constant="25" id="6EU-p9-Bth"/>
+                                                                <constraint firstItem="95c-X2-6w5" firstAttribute="leading" secondItem="2bY-lI-7y8" secondAttribute="leading" constant="10" id="9H8-PC-Opg"/>
+                                                                <constraint firstItem="mvc-V0-OkZ" firstAttribute="top" secondItem="2bY-lI-7y8" secondAttribute="top" id="9f4-7b-vAV"/>
+                                                                <constraint firstItem="WQ4-6g-pB7" firstAttribute="top" secondItem="2bY-lI-7y8" secondAttribute="top" id="A0h-1T-WY3"/>
+                                                                <constraint firstItem="WQ4-6g-pB7" firstAttribute="leading" secondItem="95c-X2-6w5" secondAttribute="trailing" constant="20" id="Cgx-F0-kIX"/>
+                                                                <constraint firstAttribute="trailing" secondItem="PaG-r2-C06" secondAttribute="trailing" constant="10" id="W4y-35-p0L"/>
+                                                                <constraint firstItem="95c-X2-6w5" firstAttribute="top" secondItem="2bY-lI-7y8" secondAttribute="top" id="dwn-4Q-PcX"/>
+                                                                <constraint firstItem="PaG-r2-C06" firstAttribute="top" secondItem="2bY-lI-7y8" secondAttribute="top" id="eIY-ox-sGu"/>
+                                                            </constraints>
+                                                        </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="time" destination="95c-X2-6w5" id="PVj-uk-GXp"/>
+                                                        </connections>
+                                                    </tableViewCell>
+                                                </prototypes>
                                             </tableView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -309,7 +364,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pXf-DJ-3Gm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="86" y="9"/>
+            <point key="canvasLocation" x="85.599999999999994" y="8.5457271364317844"/>
         </scene>
     </scenes>
     <resources>

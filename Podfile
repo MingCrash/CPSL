@@ -18,6 +18,6 @@ target 'CPSL_FlightSchedule' do
   end
 
 pod 'SDWebImage'
-
+pod 'SnapKit'
 
 end

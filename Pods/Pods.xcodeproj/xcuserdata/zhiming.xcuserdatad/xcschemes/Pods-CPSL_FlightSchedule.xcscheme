@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "42B88BAF9E09ED82D78C8D957EA60EC2"
+               BlueprintIdentifier = "8EC1FA13474FC53D92A7A346F29B1B02"
                BuildableName = "Pods_CPSL_FlightSchedule.framework"
                BlueprintName = "Pods-CPSL_FlightSchedule"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "42B88BAF9E09ED82D78C8D957EA60EC2"
+            BlueprintIdentifier = "8EC1FA13474FC53D92A7A346F29B1B02"
             BuildableName = "Pods_CPSL_FlightSchedule.framework"
             BlueprintName = "Pods-CPSL_FlightSchedule"
             ReferencedContainer = "container:Pods.xcodeproj">

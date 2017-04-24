@@ -25,6 +25,7 @@
 		C426C7C71EA6224600C1FDC5 /* SearchHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C426C7C51EA6224600C1FDC5 /* SearchHistoryTableViewController.swift */; };
 		C426C7CA1EA7651000C1FDC5 /* SearchHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C426C7C91EA7651000C1FDC5 /* SearchHistoryTableViewCell.swift */; };
 		C47E868B1EA88D4C009C968D /* FlightResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47E868A1EA88D4C009C968D /* FlightResultTableViewCell.swift */; };
+		C4F9F94F1EACC00F00212809 /* InAppWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9F94E1EACC00F00212809 /* InAppWebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		C426C7C51EA6224600C1FDC5 /* SearchHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableViewController.swift; sourceTree = "<group>"; };
 		C426C7C91EA7651000C1FDC5 /* SearchHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		C47E868A1EA88D4C009C968D /* FlightResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightResultTableViewCell.swift; sourceTree = "<group>"; };
+		C4F9F94E1EACC00F00212809 /* InAppWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppWebViewController.swift; sourceTree = "<group>"; };
 		F476750E4A5D639004415D8C /* Pods_CPSL_FlightSchedule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CPSL_FlightSchedule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -193,6 +195,7 @@
 				C426C7C51EA6224600C1FDC5 /* SearchHistoryTableViewController.swift */,
 				C426C7C91EA7651000C1FDC5 /* SearchHistoryTableViewCell.swift */,
 				C47E868A1EA88D4C009C968D /* FlightResultTableViewCell.swift */,
+				C4F9F94E1EACC00F00212809 /* InAppWebViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 			files = (
 				C408A8E61EA45E09005BBE4F /* FlightScheduleViewController.swift in Sources */,
 				C426C7C71EA6224600C1FDC5 /* SearchHistoryTableViewController.swift in Sources */,
+				C4F9F94F1EACC00F00212809 /* InAppWebViewController.swift in Sources */,
 				C47E868B1EA88D4C009C968D /* FlightResultTableViewCell.swift in Sources */,
 				C411BB941E9E1C8C00A74CC9 /* AppDelegate.swift in Sources */,
 				C411BB9C1E9E1C8C00A74CC9 /* CPSL_FlightSchedule.xcdatamodeld in Sources */,

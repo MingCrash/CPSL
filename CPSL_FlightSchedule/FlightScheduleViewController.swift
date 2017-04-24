@@ -15,12 +15,10 @@ class FlightScheduleViewController: UIViewController {
     @IBAction func SegmentSelector(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             isDisplayArrivalresult = true
-            flightResult_Arrival.reloadData()
-            flightResultScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            flightResultScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         }else{
             isDisplayArrivalresult = false
-            flightResult_Departure.reloadData()
-            flightResultScrollView.setContentOffset(CGPoint(x: SCREEN_WIDTH, y: 0), animated: true)
+            flightResultScrollView.setContentOffset(CGPoint(x: SCREEN_WIDTH, y: 0), animated: false)
         }
     }
     
@@ -39,16 +37,17 @@ class FlightScheduleViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         searchFS.delegate = self
-        flightResult_Arrival.delegate = self
-        flightResult_Arrival.dataSource = self
+    
         flightResult_Departure.delegate = self
         flightResult_Departure.dataSource = self
+        flightResult_Arrival.delegate = self
+        flightResult_Arrival.dataSource = self
     }
     
     private func setupNavigationBar() {
         let backButton = UIButton()
         backButton.setTitle("FLIGHT SCHEDULE", for: .normal)
-        backButton.setTitleColor(UIColor.black, for: .normal)
+        backButton.setTitleColor(UIColor.white, for: .normal)
         backButton.sizeToFit()
         backButton.addTarget(self, action: #selector(btnClicked), for: .touchUpInside)
         navigationItem.titleView = backButton
@@ -89,45 +88,38 @@ extension FlightScheduleViewController: UITextFieldDelegate{
 extension FlightScheduleViewController: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if isDisplayArrivalresult{
-            tableView.isEqual(flightResult_Arrival)
-        }else{
-            tableView.isEqual(flightResult_Departure)
-        }
-        
         var cell: FlightResultTableViewCell? = nil
         
-        cell = tableView.dequeueReusableCell(withIdentifier: "FlightArrivalResultResuseID") as? FlightResultTableViewCell
-        if cell == nil{
-            cell = FlightResultTableViewCell(style: .default, reuseIdentifier: "FlightArrivalResultResuseID")
+        if tableView.isEqual(flightResult_Arrival) {
+            cell = tableView.dequeueReusableCell(withIdentifier: "FlightArrivalResultResuseID") as? FlightResultTableViewCell
+            if cell == nil{
+                cell = FlightResultTableViewCell(style: .default, reuseIdentifier: "FlightArrivalResultResuseID")
+            }
+            return cell!
+        }else if tableView.isEqual(flightResult_Departure){
+            cell = tableView.dequeueReusableCell(withIdentifier: "FlightDepartureResultResuseID") as? FlightResultTableViewCell
+            if cell == nil{
+                cell = FlightResultTableViewCell(style: .default, reuseIdentifier: "FlightDepartureResultResuseID")
+            }
+            return cell!
         }
-        
         
         if indexPath.row%2 == 0 {
             cell?.contentView.backgroundColor = UIColor(red: 248/256.0, green: 248/256.0, blue: 248/256.0, alpha: 1.0)
         }
-        
-//        cell?.time.text = "Row \(indexPath.row)"
         return cell!
     }
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 65.0
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isDisplayArrivalresult{
-            tableView.isEqual(flightResult_Arrival)
-        }else{
-            tableView.isEqual(flightResult_Departure)
-        }
-
         return 20
     }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        if isDisplayArrivalresult{
-            tableView.isEqual(flightResult_Arrival)
-        }else{
-            tableView.isEqual(flightResult_Departure)
-        }
-
         return 1
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let inAppWebView = InAppWebViewController()
+        navigationController?.pushViewController(inAppWebView, animated: true)
     }
 }

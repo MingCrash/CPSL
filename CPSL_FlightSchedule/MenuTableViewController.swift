@@ -59,7 +59,7 @@ class MenuTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 3 {
-            let mainSB = UIStoryboard.init(name: "Main", bundle: nil)
+            let mainSB = UIStoryboard(name: "Main", bundle: nil)
             let test = mainSB.instantiateViewController(withIdentifier: "FlightScheduleViewIdentity")
             
             let vc = UINavigationController(rootViewController: test)
