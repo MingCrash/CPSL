@@ -8,13 +8,16 @@
 
 import Foundation
 import UIKit
-
-let resultKey:String  = "ResultData"
+import CoreData
 
 
 class FlightScheduleViewController: UIViewController {
     let searchHistoryView = SearchHistoryTableViewController()
-    var dataArray: [FlightResultInfo]? = [FlightResultInfo]()
+    let userDefaultsStandard = UserDefaults.standard
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var dataArray: [FlightResultInfo]? = nil
+    let entityName: String  = "FlightResultInfo"
+
     
     @IBAction func SegmentSelector(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
@@ -42,30 +45,35 @@ class FlightScheduleViewController: UIViewController {
     
         flightResult_Departure.delegate = self
         flightResult_Departure.dataSource = self
+        flightResult_Departure.separatorStyle = .none
         flightResult_Arrival.delegate = self
         flightResult_Arrival.dataSource = self
+        flightResult_Arrival.separatorStyle = .none
         
-        setDefualtData()
+        setDefaultData()
+        let fetchRequet = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        do {
+            dataArray = try context.fetch(fetchRequet) as? [FlightResultInfo]
+        } catch  {
+            fatalError("CoreData 抓取数据失败！！")
+        }
     }
     
-    private func setDefualtData() {
-        let userDefaults = UserDefaults.standard
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
+    func setDefaultData() {
+        for i in 0..<6 {
+            let element = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! FlightResultInfo
 
-        for i in 1..<11 {
-            let currentTime = Date()
-            let element = FlightResultInfo()
-            element.time = dateFormatter.string(from: currentTime)
-            element.flightNum = "CX\(i)"
-            element.flightInfo = "CGK(CengKareng)HAN"
-            element.endTime = dateFormatter.string(from: currentTime)
-            dataArray?.append(element)
+            element.time = Date() as NSDate
+            element.endtime = Date() as NSDate
+            element.flightNum = "CX60\(i)"
+            element.flightInfo = "AirPlane CX60\(i) to Cantonese"
+            
+            do {
+                try context.save()
+            } catch  {
+                fatalError("CoreData 保存失败！！")
+            }
         }
-        //将数组转化成为NSData
-//        let data = NSKeyedArchiver.archivedData(withRootObject: dataArray!)
-        
-        userDefaults.set(dataArray, forKey: resultKey)
     }
     
     private func setupNavigationBar() {
@@ -111,6 +119,8 @@ extension FlightScheduleViewController: UITextFieldDelegate{
 
 extension FlightScheduleViewController: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let formmtter = DateFormatter()
+        formmtter.dateFormat = "HH:mm"
         
         var cell: FlightResultTableViewCell? = nil
         
@@ -119,20 +129,20 @@ extension FlightScheduleViewController: UITableViewDelegate,UITableViewDataSourc
             if cell == nil{
                 cell = FlightResultTableViewCell(style: .default, reuseIdentifier: "FlightArrivalResultResuseID")
             }
-            cell?.time.text = dataArray?[indexPath.row].time
-            cell?.flightNum.text = dataArray?[indexPath.row].flightNum
-            cell?.flightInfo.text = dataArray?[indexPath.row].flightInfo
-            cell?.endTime.text = dataArray?[indexPath.row].endTime
+            cell?.time.text = formmtter.string(from: dataArray![indexPath.row].time! as Date)
+            cell?.endTime.text = formmtter.string(from: dataArray![indexPath.row].endtime! as Date)
+            cell?.flightNum.text = dataArray![indexPath.row].flightNum
+            cell?.flightInfo.text = dataArray![indexPath.row].flightInfo
             return cell!
         }else if tableView.isEqual(flightResult_Departure){
             cell = tableView.dequeueReusableCell(withIdentifier: "FlightDepartureResultResuseID") as? FlightResultTableViewCell
             if cell == nil{
                 cell = FlightResultTableViewCell(style: .default, reuseIdentifier: "FlightDepartureResultResuseID")
             }
-            cell?.time.text = dataArray?[indexPath.row].time
-            cell?.flightNum.text = dataArray?[indexPath.row].flightNum
-            cell?.flightInfo.text = dataArray?[indexPath.row].flightInfo
-            cell?.endTime.text = dataArray?[indexPath.row].endTime
+            cell?.time.text = formmtter.string(from: dataArray![indexPath.row].time! as Date)
+            cell?.endTime.text = formmtter.string(from: dataArray![indexPath.row].endtime! as Date)
+            cell?.flightNum.text = dataArray![indexPath.row].flightNum
+            cell?.flightInfo.text = dataArray![indexPath.row].flightInfo
             return cell!
         }
         

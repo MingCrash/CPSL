@@ -13,6 +13,7 @@ class SearchHistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
+        tableView.separatorStyle = .none
     }
     
     override func didReceiveMemoryWarning() {

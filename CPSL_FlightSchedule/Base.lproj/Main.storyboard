@@ -187,7 +187,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f8t-l7-zPA" userLabel="contentView">
                                         <rect key="frame" x="0.0" y="0.0" width="750" height="438"/>
                                         <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3Mh-ez-3QF" userLabel="Flight Result Arrival">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3Mh-ez-3QF" userLabel="Flight Result Arrival">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="438"/>
                                                 <color key="backgroundColor" red="1" green="0.31070617210000001" blue="0.34861419199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
@@ -195,7 +195,7 @@
                                                         <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rXH-Vd-R4g" id="IEs-tY-oHd">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pc6-U1-nVJ">
@@ -303,6 +303,9 @@
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
+                                                            <outlet property="endTime" destination="PaG-r2-C06" id="f2B-ol-elk"/>
+                                                            <outlet property="flightInfo" destination="mvc-V0-OkZ" id="9Sc-cE-qpm"/>
+                                                            <outlet property="flightNum" destination="WQ4-6g-pB7" id="ktL-Bk-3YO"/>
                                                             <outlet property="time" destination="95c-X2-6w5" id="PVj-uk-GXp"/>
                                                         </connections>
                                                     </tableViewCell>

@@ -20,16 +20,9 @@ class MainPageTableViewCell: UITableViewCell {
     @IBOutlet var label: UILabel!
     override func awakeFromNib() {
     super.awakeFromNib()
-        // Initialization code
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
-//        contentView.addGestureRecognizer(tap)
+
     }
 
-//    func tapped(_ sender: UITapGestureRecognizer) {
-//        if (delegate != nil) && (delegate?.responds(to: #selector(MainPageTableViewCellDelegate.tappedCell)))! {
-//            delegate?.tappedCell(with: row!)
-//        }
-//    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

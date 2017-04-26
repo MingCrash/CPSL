@@ -24,7 +24,8 @@
 		C41ECC341E9F91BD00080C50 /* MainPageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41ECC321E9F91BD00080C50 /* MainPageTableViewCell.xib */; };
 		C426C7C71EA6224600C1FDC5 /* SearchHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C426C7C51EA6224600C1FDC5 /* SearchHistoryTableViewController.swift */; };
 		C426C7CA1EA7651000C1FDC5 /* SearchHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C426C7C91EA7651000C1FDC5 /* SearchHistoryTableViewCell.swift */; };
-		C44FE1A51EAF387B00B8F8A7 /* FlightResultIfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FE1A41EAF387B00B8F8A7 /* FlightResultIfo.swift */; };
+		C44FE1A81EB08F9A00B8F8A7 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C44FE1A61EB08F9A00B8F8A7 /* Model.xcdatamodeld */; };
+		C44FE1AC1EB0A43D00B8F8A7 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FE1AB1EB0A43D00B8F8A7 /* SearchTableViewController.swift */; };
 		C47E868B1EA88D4C009C968D /* FlightResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47E868A1EA88D4C009C968D /* FlightResultTableViewCell.swift */; };
 		C4F9F94F1EACC00F00212809 /* InAppWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9F94E1EACC00F00212809 /* InAppWebViewController.swift */; };
 /* End PBXBuildFile section */
@@ -75,7 +76,8 @@
 		C41ECC321E9F91BD00080C50 /* MainPageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainPageTableViewCell.xib; sourceTree = "<group>"; };
 		C426C7C51EA6224600C1FDC5 /* SearchHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableViewController.swift; sourceTree = "<group>"; };
 		C426C7C91EA7651000C1FDC5 /* SearchHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableViewCell.swift; sourceTree = "<group>"; };
-		C44FE1A41EAF387B00B8F8A7 /* FlightResultIfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightResultIfo.swift; sourceTree = "<group>"; };
+		C44FE1A71EB08F9A00B8F8A7 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		C44FE1AB1EB0A43D00B8F8A7 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		C47E868A1EA88D4C009C968D /* FlightResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightResultTableViewCell.swift; sourceTree = "<group>"; };
 		C4F9F94E1EACC00F00212809 /* InAppWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppWebViewController.swift; sourceTree = "<group>"; };
 		F476750E4A5D639004415D8C /* Pods_CPSL_FlightSchedule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CPSL_FlightSchedule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +159,7 @@
 		C411BB921E9E1C8C00A74CC9 /* CPSL_FlightSchedule */ = {
 			isa = PBXGroup;
 			children = (
+				C44FE1A61EB08F9A00B8F8A7 /* Model.xcdatamodeld */,
 				C41ECC2C1E9E29D500080C50 /* Helper */,
 				C44FE1A31EAF316200B8F8A7 /* Data */,
 				C41ECC271E9E28FE00080C50 /* View */,
@@ -199,6 +202,7 @@
 				C426C7C91EA7651000C1FDC5 /* SearchHistoryTableViewCell.swift */,
 				C47E868A1EA88D4C009C968D /* FlightResultTableViewCell.swift */,
 				C4F9F94E1EACC00F00212809 /* InAppWebViewController.swift */,
+				C44FE1AB1EB0A43D00B8F8A7 /* SearchTableViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -214,7 +218,6 @@
 		C44FE1A31EAF316200B8F8A7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				C44FE1A41EAF387B00B8F8A7 /* FlightResultIfo.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -508,13 +511,14 @@
 				C426C7C71EA6224600C1FDC5 /* SearchHistoryTableViewController.swift in Sources */,
 				C4F9F94F1EACC00F00212809 /* InAppWebViewController.swift in Sources */,
 				C47E868B1EA88D4C009C968D /* FlightResultTableViewCell.swift in Sources */,
-				C44FE1A51EAF387B00B8F8A7 /* FlightResultIfo.swift in Sources */,
 				C411BB941E9E1C8C00A74CC9 /* AppDelegate.swift in Sources */,
 				C411BB9C1E9E1C8C00A74CC9 /* CPSL_FlightSchedule.xcdatamodeld in Sources */,
 				C426C7CA1EA7651000C1FDC5 /* SearchHistoryTableViewCell.swift in Sources */,
+				C44FE1AC1EB0A43D00B8F8A7 /* SearchTableViewController.swift in Sources */,
 				C41ECC2E1E9E2A0700080C50 /* UIColor+RandomColor.swift in Sources */,
 				C41ECC261E9E26D500080C50 /* MenuTableViewController.swift in Sources */,
 				C41ECC331E9F91BD00080C50 /* MainPageTableViewCell.swift in Sources */,
+				C44FE1A81EB08F9A00B8F8A7 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -803,6 +807,17 @@
 			);
 			currentVersion = C411BB9B1E9E1C8C00A74CC9 /* CPSL_FlightSchedule.xcdatamodel */;
 			path = CPSL_FlightSchedule.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		C44FE1A61EB08F9A00B8F8A7 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C44FE1A71EB08F9A00B8F8A7 /* Model.xcdatamodel */,
+			);
+			currentVersion = C44FE1A71EB08F9A00B8F8A7 /* Model.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = ../Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
