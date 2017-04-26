@@ -241,6 +241,9 @@
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
+                                                            <outlet property="endTime" destination="rvw-vw-85l" id="Vrz-rE-Efs"/>
+                                                            <outlet property="flightInfo" destination="t0p-wi-4Fe" id="wLb-Fb-EQP"/>
+                                                            <outlet property="flightNum" destination="o4z-ge-iLv" id="0vU-mG-VNa"/>
                                                             <outlet property="time" destination="Pc6-U1-nVJ" id="jxX-om-J5G"/>
                                                         </connections>
                                                     </tableViewCell>

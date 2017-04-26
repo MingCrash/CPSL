@@ -11,6 +11,9 @@ import UIKit
 class FlightResultTableViewCell: UITableViewCell {
 
     @IBOutlet var time: UILabel!
+    @IBOutlet var flightNum: UILabel!
+    @IBOutlet var flightInfo: UILabel!
+    @IBOutlet var endTime: UILabel!
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

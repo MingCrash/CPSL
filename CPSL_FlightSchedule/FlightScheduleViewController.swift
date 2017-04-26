@@ -9,15 +9,17 @@
 import Foundation
 import UIKit
 
+let resultKey:String  = "ResultData"
+
+
 class FlightScheduleViewController: UIViewController {
     let searchHistoryView = SearchHistoryTableViewController()
-    var isDisplayArrivalresult = true
+    var dataArray: [FlightResultInfo]? = [FlightResultInfo]()
+    
     @IBAction func SegmentSelector(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            isDisplayArrivalresult = true
             flightResultScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         }else{
-            isDisplayArrivalresult = false
             flightResultScrollView.setContentOffset(CGPoint(x: SCREEN_WIDTH, y: 0), animated: false)
         }
     }
@@ -42,6 +44,28 @@ class FlightScheduleViewController: UIViewController {
         flightResult_Departure.dataSource = self
         flightResult_Arrival.delegate = self
         flightResult_Arrival.dataSource = self
+        
+        setDefualtData()
+    }
+    
+    private func setDefualtData() {
+        let userDefaults = UserDefaults.standard
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+
+        for i in 1..<11 {
+            let currentTime = Date()
+            let element = FlightResultInfo()
+            element.time = dateFormatter.string(from: currentTime)
+            element.flightNum = "CX\(i)"
+            element.flightInfo = "CGK(CengKareng)HAN"
+            element.endTime = dateFormatter.string(from: currentTime)
+            dataArray?.append(element)
+        }
+        //将数组转化成为NSData
+//        let data = NSKeyedArchiver.archivedData(withRootObject: dataArray!)
+        
+        userDefaults.set(dataArray, forKey: resultKey)
     }
     
     private func setupNavigationBar() {
@@ -95,12 +119,20 @@ extension FlightScheduleViewController: UITableViewDelegate,UITableViewDataSourc
             if cell == nil{
                 cell = FlightResultTableViewCell(style: .default, reuseIdentifier: "FlightArrivalResultResuseID")
             }
+            cell?.time.text = dataArray?[indexPath.row].time
+            cell?.flightNum.text = dataArray?[indexPath.row].flightNum
+            cell?.flightInfo.text = dataArray?[indexPath.row].flightInfo
+            cell?.endTime.text = dataArray?[indexPath.row].endTime
             return cell!
         }else if tableView.isEqual(flightResult_Departure){
             cell = tableView.dequeueReusableCell(withIdentifier: "FlightDepartureResultResuseID") as? FlightResultTableViewCell
             if cell == nil{
                 cell = FlightResultTableViewCell(style: .default, reuseIdentifier: "FlightDepartureResultResuseID")
             }
+            cell?.time.text = dataArray?[indexPath.row].time
+            cell?.flightNum.text = dataArray?[indexPath.row].flightNum
+            cell?.flightInfo.text = dataArray?[indexPath.row].flightInfo
+            cell?.endTime.text = dataArray?[indexPath.row].endTime
             return cell!
         }
         
@@ -113,7 +145,7 @@ extension FlightScheduleViewController: UITableViewDelegate,UITableViewDataSourc
         return 65.0
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return (dataArray?.count)!
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

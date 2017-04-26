@@ -12,8 +12,9 @@ import SnapKit
 
 class InAppWebViewController: UIViewController{
     
-    var urlString = "www.baidu.com"
-    private let webView = WKWebView()
+    var urlString = "https://www.baidu.com/"
+    private let webView = WKWebView(frame: UIScreen.main.bounds)
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,18 +37,14 @@ class InAppWebViewController: UIViewController{
         
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshTapped))
         navigationItem.rightBarButtonItem = refresh
-        
     }
     
     private func addWebView() {
-        if let url = URL(string: urlString) {
-            webView.load(URLRequest(url: url))
-        }
         webView.navigationDelegate = self
-        webView.uiDelegate = self
         view.addSubview(webView)
-        webView.snp.makeConstraints{
-            make in make.edges.equalTo(view)
+        
+        if let url = URL(string: urlString){
+            webView.load(URLRequest(url: url))
         }
     }
     

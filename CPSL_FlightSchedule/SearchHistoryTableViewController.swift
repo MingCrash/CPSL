@@ -29,12 +29,12 @@ class SearchHistoryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 8
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 20.0
+            return 28.0
         }
         return 40.0
     }
@@ -42,13 +42,13 @@ class SearchHistoryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var reuseCell: SearchHistoryTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "Cell") as? SearchHistoryTableViewCell
-        
         if reuseCell == nil {
             reuseCell = SearchHistoryTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell")
         }
         
         if indexPath.row == 0 {
             reuseCell?.label?.text = "Search History"
+            reuseCell?.backgroundColor = UIColor.gray
         }else {
             reuseCell?.label?.text = "empty"
         }
