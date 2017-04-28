@@ -19,6 +19,7 @@ class FlightScheduleViewController: UIViewController {
     let searchResultView = SearchResultViewController()
     let userDefaultsStandard = UserDefaults.standard
     var dataArray: [FlightResultInfo]? = nil
+    var flightNumArray: [String]? = nil
     
     @IBAction func SegmentSelector(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
@@ -44,7 +45,8 @@ class FlightScheduleViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         searchFS.delegate = self
-        searchFS.addObserver(searchResultView, forKeyPath: searchText_KeyPath, options: .initial, context: nil)
+        searchFS.addObserver(searchResultView, forKeyPath: searchText_KeyPath, options: .new, context: nil)
+        searchResultView.searchResultsUpdater = self
     
         flightResult_Departure.delegate = self
         flightResult_Departure.dataSource = self
@@ -108,7 +110,6 @@ class FlightScheduleViewController: UIViewController {
 extension FlightScheduleViewController: UITextFieldDelegate{
     //textField has become the first responder
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        
         cancelBtnOutlet.isHidden = false
         searchHistoryView.view.frame = CGRect(x: 0, y: 114.0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-114.0)
         view.addSubview(searchHistoryView.view)
@@ -189,5 +190,19 @@ extension FlightScheduleViewController: UITableViewDelegate,UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let inAppWebView = InAppWebViewController()
         navigationController?.pushViewController(inAppWebView, animated: true)
+    }
+}
+
+extension FlightScheduleViewController: SearchViewControllerResultUpdatingDelegate{
+    func updateSearchResultsForSearchController(){
+        let searchString = searchFS.text
+        print((searchString?.characters.count)!)
+//        if !((searchString?.characters.count)! > 1) {
+//            searchResultView.filterDataAarry = []
+//        }else{
+//            searchResultView.filterDataAarry = dataArray?.filter {
+//                ($0.flightNum?.contains(searchString!))!
+//            }
+//        }
     }
 }

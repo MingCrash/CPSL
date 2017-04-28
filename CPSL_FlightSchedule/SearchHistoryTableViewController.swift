@@ -12,7 +12,6 @@ class SearchHistoryTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.magenta
         tableView.delegate = self
         tableView.separatorStyle = .none
     }

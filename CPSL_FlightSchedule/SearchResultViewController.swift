@@ -8,18 +8,18 @@
 
 import UIKit
 
-protocol SearchViewControllerResultUpdatingDelegate {
-   func updateSearchResultsForSearchController(on SearchView: SearchResultViewController)
+@objc protocol SearchViewControllerResultUpdatingDelegate {
+     func updateSearchResultsForSearchController()
 }
 
 class SearchResultViewController: UITableViewController{
     
-    var searchResultsUpdater: SearchViewControllerResultUpdatingDelegate? = nil
-    var filterDataAarry: [String]? = nil
+    var searchResultsUpdater: AnyObject? = nil
+    var delegate: AnyObject? = nil
+    var filterDataAarry: [FlightResultInfo]? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.green
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -27,8 +27,8 @@ class SearchResultViewController: UITableViewController{
     
     //KVO
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == searchText_KeyPath {
-            print("observe something")
+        if keyPath == searchText_KeyPath && (searchResultsUpdater?.responds(to: #selector(SearchViewControllerResultUpdatingDelegate.updateSearchResultsForSearchController(on:))))!{
+            searchResultsUpdater?.updateSearchResultsForSearchController()
         }
     }
 
@@ -41,7 +41,7 @@ class SearchResultViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if section == 0 || filterDataAarry == nil{
             return 1
         }
         return (filterDataAarry?.count)!+1
@@ -64,6 +64,8 @@ class SearchResultViewController: UITableViewController{
         
         if indexPath.row == 0 && indexPath.section == 1{
             cell?.label?.text = "Suggested Search Terms"
+        }else if indexPath.section == 1{
+            cell?.label?.text = filterDataAarry?[indexPath.row-1].flightNum
         }
         return cell!
     }
