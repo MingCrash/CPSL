@@ -8,16 +8,16 @@
 
 import UIKit
 
-class SearchHistoryTableViewCell: UITableViewCell {
+class SearchTableViewCell: UITableViewCell {
     
     var label: UILabel? = nil
     
     override func layoutSubviews() {
-        label = UILabel(frame: CGRect(x: 20.0, y: 0, width: 200.0, height: 20.0))
         drawTableViewCell()
     }
     
     private func drawTableViewCell() {
+        label = UILabel(frame: CGRect(x: 20.0, y: 0, width: 300.0, height: 20.0))
         contentView.addSubview(label!)
     }
 
@@ -28,3 +28,4 @@ class SearchHistoryTableViewCell: UITableViewCell {
     }
 
 }
+

@@ -12,6 +12,7 @@ class SearchHistoryTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.magenta
         tableView.delegate = self
         tableView.separatorStyle = .none
     }
@@ -42,9 +43,9 @@ class SearchHistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var reuseCell: SearchHistoryTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "Cell") as? SearchHistoryTableViewCell
+        var reuseCell: SearchTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "Cell") as? SearchTableViewCell
         if reuseCell == nil {
-            reuseCell = SearchHistoryTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell")
+            reuseCell = SearchTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell")
         }
         
         if indexPath.row == 0 {

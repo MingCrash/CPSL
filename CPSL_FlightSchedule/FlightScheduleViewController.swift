@@ -10,14 +10,15 @@ import Foundation
 import UIKit
 import CoreData
 
+let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+let entityName: String  = "FlightResultInfo"
+let searchText_KeyPath: String = "SearchTextKeyPath"
 
 class FlightScheduleViewController: UIViewController {
     let searchHistoryView = SearchHistoryTableViewController()
+    let searchResultView = SearchResultViewController()
     let userDefaultsStandard = UserDefaults.standard
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var dataArray: [FlightResultInfo]? = nil
-    let entityName: String  = "FlightResultInfo"
-
     
     @IBAction func SegmentSelector(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
@@ -31,6 +32,7 @@ class FlightScheduleViewController: UIViewController {
     @IBAction func cancelBtnAction(_ sender: UIButton) {
         cancelBtnOutlet.isHidden = true
         searchHistoryView.view.removeFromSuperview()
+        searchResultView.view.removeFromSuperview()
         searchFS.resignFirstResponder()
     }
     @IBOutlet var cancelBtnOutlet: UIButton!
@@ -42,6 +44,7 @@ class FlightScheduleViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         searchFS.delegate = self
+        searchFS.addObserver(searchResultView, forKeyPath: searchText_KeyPath, options: .initial, context: nil)
     
         flightResult_Departure.delegate = self
         flightResult_Departure.dataSource = self
@@ -97,23 +100,46 @@ class FlightScheduleViewController: UIViewController {
     @objc func refreshHander() {
         print("refresh")
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
         
-    }
-    
     override func didReceiveMemoryWarning() {
-        
     }
-    
 }
 
 extension FlightScheduleViewController: UITextFieldDelegate{
     //textField has become the first responder
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
         cancelBtnOutlet.isHidden = false
         searchHistoryView.view.frame = CGRect(x: 0, y: 114.0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-114.0)
         view.addSubview(searchHistoryView.view)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        //get the lenght of the current content
+        let contentLenght = (textField.text?.characters.count)! + string.characters.count - range.length
+        
+        if contentLenght != 0{
+            cancelBtnOutlet.isHidden = false
+            searchHistoryView.view.removeFromSuperview()
+            searchResultView.view.frame = CGRect(x: 0, y: 114.0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-114.0)
+            view.addSubview(searchResultView.view)
+        }else{
+            searchResultView.view.removeFromSuperview()
+            searchHistoryView.view.frame = CGRect(x: 0, y: 114.0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-114.0)
+            view.addSubview(searchHistoryView.view)
+        }
+        return true
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        searchResultView.view.removeFromSuperview()
+        searchHistoryView.view.frame = CGRect(x: 0, y: 114.0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-114.0)
+        view.addSubview(searchHistoryView.view)
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.text = ""
     }
 }
 

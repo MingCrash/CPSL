@@ -8,7 +8,6 @@
 
 import UIKit
 import WebKit
-import SnapKit
 
 class InAppWebViewController: UIViewController{
     
