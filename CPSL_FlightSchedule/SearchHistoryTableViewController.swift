@@ -45,6 +45,8 @@ class SearchHistoryTableViewController: UITableViewController {
         var reuseCell: SearchTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "Cell") as? SearchTableViewCell
         if reuseCell == nil {
             reuseCell = SearchTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell")
+        }else{
+            reuseCell?.label?.text = nil
         }
         
         if indexPath.row == 0 {

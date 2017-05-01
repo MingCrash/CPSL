@@ -25,9 +25,8 @@ class SearchResultViewController: UITableViewController{
         tableView.separatorStyle = .none
     }
     
-    //KVO
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == searchText_KeyPath && (searchResultsUpdater?.responds(to: #selector(SearchViewControllerResultUpdatingDelegate.updateSearchResultsForSearchController(on:))))!{
+    func textUpdated() {
+        if  searchResultsUpdater != nil && (searchResultsUpdater?.responds(to: #selector(SearchViewControllerResultUpdatingDelegate.updateSearchResultsForSearchController)))!{
             searchResultsUpdater?.updateSearchResultsForSearchController()
         }
     }
@@ -60,22 +59,19 @@ class SearchResultViewController: UITableViewController{
         var cell: SearchTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "Cell") as? SearchTableViewCell
         if cell == nil {
             cell = SearchTableViewCell(style: .default, reuseIdentifier: "Cell")
+        }else{
+            cell?.label?.text=nil
         }
         
         if indexPath.row == 0 && indexPath.section == 1{
             cell?.label?.text = "Suggested Search Terms"
+            cell?.isHighlighted = false
+            return cell!
         }else if indexPath.section == 1{
             cell?.label?.text = filterDataAarry?[indexPath.row-1].flightNum
+            return cell!
         }
+        cell?.label?.text = "Search For:"
         return cell!
     }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        let label = UILabel(frame: CGRect(x: 20, y: 0, width: 300, height: 20))
-        label.text = "test!!"
-        headerView.addSubview(label)
-        return headerView
-    }
-
 }

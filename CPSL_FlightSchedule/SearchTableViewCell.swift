@@ -13,14 +13,14 @@ class SearchTableViewCell: UITableViewCell {
     var label: UILabel? = nil
     
     override func layoutSubviews() {
-        drawTableViewCell()
-    }
-    
-    private func drawTableViewCell() {
         label = UILabel(frame: CGRect(x: 20.0, y: 0, width: 300.0, height: 20.0))
         contentView.addSubview(label!)
+   }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
     }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
