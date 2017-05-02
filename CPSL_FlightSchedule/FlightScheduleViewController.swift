@@ -58,16 +58,14 @@ class FlightScheduleViewController: UIViewController {
         
         setDefaultData()
         let fetchRequet = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        fetchRequet.returnsObjectsAsFaults = false
         do {
             dataArray = try context.fetch(fetchRequet) as? [FlightResultInfo]
         } catch  {
             fatalError("CoreData 抓取数据失败！！")
         }
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        searchFS.removeObserver(searchResultView, forKeyPath: searchText_KeyPath)
-    }
+
     
     func setDefaultData() {
         for i in 0..<6 {
@@ -121,7 +119,9 @@ extension FlightScheduleViewController: UITextFieldDelegate{
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         //get the lenght of the current content
         contentLenght = (textField.text?.characters.count)! + string.characters.count - range.length
-        searchResultView.textUpdated()
+        searchResultView.currentSearchString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        searchResultView.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        searchResultView.updateSearchResults()
         if contentLenght != 0{
             cancelBtnOutlet.isHidden = false
             searchHistoryView.view.removeFromSuperview()
@@ -157,13 +157,11 @@ extension FlightScheduleViewController: UITableViewDelegate,UITableViewDataSourc
                 cell = FlightResultTableViewCell(style: .default, reuseIdentifier: "FlightArrivalResultResuseID")
             }else{
                 //将从重用队列里面拿出来的cell的内容清空
-                cell?.time = nil
-                cell?.endTime = nil
-                cell?.flightNum = nil
-                cell?.flightInfo = nil
+                cell?.time.text = nil
+                cell?.endTime.text = nil
+                cell?.flightNum.text = nil
+                cell?.flightInfo.text = nil
             }
-            print(dataArray?.description ?? "default Description")
-            print(indexPath.row)
             cell?.time.text = formmtter.string(from: dataArray![indexPath.row].time! as Date)
             cell?.endTime.text = formmtter.string(from: dataArray![indexPath.row].endtime! as Date)
             cell?.flightNum.text = dataArray![indexPath.row].flightNum
@@ -203,16 +201,15 @@ extension FlightScheduleViewController: UITableViewDelegate,UITableViewDataSourc
 
 extension FlightScheduleViewController: SearchViewControllerResultUpdatingDelegate{
     func updateSearchResultsForSearchController(){
-        let searchString = searchFS.text
-        print(searchString!)
-        print(contentLenght!)
+//        let searchString = searchFS.text
         if contentLenght == 0 {
             searchResultView.filterDataAarry = nil
         }else{
             searchResultView.filterDataAarry = dataArray?.filter {
-                ($0.flightNum?.contains(searchString!))!
+                ($0.flightNum?.contains(searchResultView.currentSearchString!))!
             }
         }
         searchResultView.tableView.reloadData()
+//        searchResultView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
     }
 }

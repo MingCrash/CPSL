@@ -17,15 +17,17 @@ class SearchResultViewController: UITableViewController{
     var searchResultsUpdater: AnyObject? = nil
     var delegate: AnyObject? = nil
     var filterDataAarry: [FlightResultInfo]? = nil
+    var currentSearchString: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: "SearchResultCell")
     }
     
-    func textUpdated() {
+    func updateSearchResults() {
         if  searchResultsUpdater != nil && (searchResultsUpdater?.responds(to: #selector(SearchViewControllerResultUpdatingDelegate.updateSearchResultsForSearchController)))!{
             searchResultsUpdater?.updateSearchResultsForSearchController()
         }
@@ -41,37 +43,44 @@ class SearchResultViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 || filterDataAarry == nil{
-            return 1
+            return 2
         }
-        return (filterDataAarry?.count)!+1
+        return filterDataAarry?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 && indexPath.row == 0{
             return 50.0
-        }else if indexPath.section == 1 && indexPath.row == 0{
+        }else if indexPath.section == 0 && indexPath.row == 1{
             return 28.0
         }
         return 40.0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: SearchTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "Cell") as? SearchTableViewCell
-        if cell == nil {
-            cell = SearchTableViewCell(style: .default, reuseIdentifier: "Cell")
-        }else{
-            cell?.label?.text=nil
-        }
         
-        if indexPath.row == 0 && indexPath.section == 1{
-            cell?.label?.text = "Suggested Search Terms"
-            cell?.isHighlighted = false
+        var cell: SearchTableViewCell? = nil
+        
+        if indexPath.section == 0 {
+            cell = SearchTableViewCell(style: .default, reuseIdentifier: "SearchResultCell")
+            if indexPath.row == 0 {
+                cell?.label?.text = "Search For:'"+(currentSearchString?.description)!+"'"
+                cell?.isSelected = false
+            }
+            if indexPath.row == 1 {
+                cell?.label?.text = "Suggested Search Terms"
+                cell?.isSelected = false
+            }
             return cell!
-        }else if indexPath.section == 1{
-            cell?.label?.text = filterDataAarry?[indexPath.row-1].flightNum
-            return cell!
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultCell") as? SearchTableViewCell
+            if cell == nil {
+                cell = SearchTableViewCell(style: .default, reuseIdentifier: "SearchResultCell")
+            }else{
+                cell?.label?.text = nil
+            }
+            cell?.label?.text = filterDataAarry?[indexPath.row].flightNum
         }
-        cell?.label?.text = "Search For:"
         return cell!
     }
 }

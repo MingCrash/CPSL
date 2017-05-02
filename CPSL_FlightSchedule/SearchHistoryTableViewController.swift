@@ -42,9 +42,9 @@ class SearchHistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var reuseCell: SearchTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "Cell") as? SearchTableViewCell
+        var reuseCell: SearchTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "SearchHistoryCell") as? SearchTableViewCell
         if reuseCell == nil {
-            reuseCell = SearchTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "Cell")
+            reuseCell = SearchTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "SearchHistoryCell")
         }else{
             reuseCell?.label?.text = nil
         }
