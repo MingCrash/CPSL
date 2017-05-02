@@ -120,7 +120,6 @@ extension FlightScheduleViewController: UITextFieldDelegate{
         //get the lenght of the current content
         contentLenght = (textField.text?.characters.count)! + string.characters.count - range.length
         searchResultView.currentSearchString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-        searchResultView.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
         searchResultView.updateSearchResults()
         if contentLenght != 0{
             cancelBtnOutlet.isHidden = false
@@ -201,7 +200,6 @@ extension FlightScheduleViewController: UITableViewDelegate,UITableViewDataSourc
 
 extension FlightScheduleViewController: SearchViewControllerResultUpdatingDelegate{
     func updateSearchResultsForSearchController(){
-//        let searchString = searchFS.text
         if contentLenght == 0 {
             searchResultView.filterDataAarry = nil
         }else{
@@ -210,6 +208,5 @@ extension FlightScheduleViewController: SearchViewControllerResultUpdatingDelega
             }
         }
         searchResultView.tableView.reloadData()
-//        searchResultView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
     }
 }

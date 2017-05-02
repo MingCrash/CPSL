@@ -18,13 +18,14 @@ class SearchResultViewController: UITableViewController{
     var delegate: AnyObject? = nil
     var filterDataAarry: [FlightResultInfo]? = nil
     var currentSearchString: String? = nil
+    var resultSelected: FlightResultInfo? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: "SearchResultCell")
     }
     
     func updateSearchResults() {
@@ -43,9 +44,26 @@ class SearchResultViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 || filterDataAarry == nil{
-            return 2
+            return 0
         }
         return filterDataAarry?.count ?? 0
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UITableViewHeaderFooterView(reuseIdentifier: "SearchResultHeaderViewID")
+        if section == 0 {
+            headerView.textLabel?.text = "Search For:'"+(currentSearchString?.description)!+"'"
+        }else{
+            headerView.textLabel?.text = "Suggested Search Terms"
+        }
+        return headerView
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0{
+            return 50.0
+        }
+        return 28.0
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -58,29 +76,19 @@ class SearchResultViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: UITableViewCell? = nil
+        cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultCellID")
         
-        var cell: SearchTableViewCell? = nil
-        
-        if indexPath.section == 0 {
-            cell = SearchTableViewCell(style: .default, reuseIdentifier: "SearchResultCell")
-            if indexPath.row == 0 {
-                cell?.label?.text = "Search For:'"+(currentSearchString?.description)!+"'"
-                cell?.isSelected = false
-            }
-            if indexPath.row == 1 {
-                cell?.label?.text = "Suggested Search Terms"
-                cell?.isSelected = false
-            }
-            return cell!
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultCell") as? SearchTableViewCell
-            if cell == nil {
-                cell = SearchTableViewCell(style: .default, reuseIdentifier: "SearchResultCell")
-            }else{
-                cell?.label?.text = nil
-            }
-            cell?.label?.text = filterDataAarry?[indexPath.row].flightNum
+        if cell == nil {
+            cell = UITableViewCell(style: .default, reuseIdentifier: "SearchResultCellID")
+        }else{
+            cell?.textLabel?.text = nil
         }
+        cell?.textLabel?.text = filterDataAarry?[indexPath.row].flightNum
         return cell!
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        resultSelected = filterDataAarry?[indexPath.row]
     }
 }

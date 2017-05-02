@@ -10,6 +10,8 @@ import UIKit
 
 class SearchHistoryTableViewController: UITableViewController {
 
+    var historySelection: [FlightResultInfo]? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -30,31 +32,33 @@ class SearchHistoryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        return 1
+    }
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UITableViewHeaderFooterView(reuseIdentifier: "SearchHistoryHeaderViewID")
+        headerView.textLabel?.text = "Search History"
+        headerView.backgroundColor = UIColor.gray
+        return headerView
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 28.0
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 28.0
-        }
         return 40.0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var reuseCell: SearchTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "SearchHistoryCell") as? SearchTableViewCell
+        var reuseCell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "SearchHistoryCellID")
         if reuseCell == nil {
-            reuseCell = SearchTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "SearchHistoryCell")
+            reuseCell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "SearchHistoryCellID")
         }else{
-            reuseCell?.label?.text = nil
+            reuseCell?.textLabel?.text = nil
         }
         
-        if indexPath.row == 0 {
-            reuseCell?.label?.text = "Search History"
-            reuseCell?.backgroundColor = UIColor.gray
-        }else {
-            reuseCell?.label?.text = "empty"
-        }
+        reuseCell?.textLabel?.text = "test"
         
         return reuseCell!
     }
