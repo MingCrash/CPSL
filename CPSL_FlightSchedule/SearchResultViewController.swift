@@ -9,7 +9,8 @@
 import UIKit
 
 @objc protocol SearchViewControllerResultUpdatingDelegate {
-     func updateSearchResultsForSearchController()
+    func updateSearchResultsForSearchController()
+    func removeResultView(by selectedResult:FlightResultInfo)
 }
 
 class SearchResultViewController: UITableViewController{
@@ -18,8 +19,6 @@ class SearchResultViewController: UITableViewController{
     var delegate: AnyObject? = nil
     var filterDataAarry: [FlightResultInfo]? = nil
     var currentSearchString: String? = nil
-    var resultSelected: FlightResultInfo? = nil
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +28,8 @@ class SearchResultViewController: UITableViewController{
     }
     
     func updateSearchResults() {
-        if  searchResultsUpdater != nil && (searchResultsUpdater?.responds(to: #selector(SearchViewControllerResultUpdatingDelegate.updateSearchResultsForSearchController)))!{
-            searchResultsUpdater?.updateSearchResultsForSearchController()
+        if  delegate != nil && (delegate?.responds(to: #selector(SearchViewControllerResultUpdatingDelegate.updateSearchResultsForSearchController)))!{
+            delegate?.updateSearchResultsForSearchController()
         }
     }
 
@@ -43,7 +42,7 @@ class SearchResultViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 || filterDataAarry == nil{
+        if section == 0 {
             return 0
         }
         return filterDataAarry?.count ?? 0
@@ -89,6 +88,9 @@ class SearchResultViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        resultSelected = filterDataAarry?[indexPath.row]
+        let selectedResult = filterDataAarry?[indexPath.row]
+        if delegate != nil && (delegate?.responds(to: #selector(SearchViewControllerResultUpdatingDelegate.removeResultView(by:))))! {
+            delegate?.removeResultView(by: selectedResult!)
+        }
     }
 }

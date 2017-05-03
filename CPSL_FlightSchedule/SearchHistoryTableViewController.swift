@@ -32,7 +32,7 @@ class SearchHistoryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return historySelection?.count ?? 0
     }
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UITableViewHeaderFooterView(reuseIdentifier: "SearchHistoryHeaderViewID")
@@ -56,10 +56,8 @@ class SearchHistoryTableViewController: UITableViewController {
             reuseCell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "SearchHistoryCellID")
         }else{
             reuseCell?.textLabel?.text = nil
-        }
-        
-        reuseCell?.textLabel?.text = "test"
-        
+        }        
+        reuseCell?.textLabel?.text = historySelection?[indexPath.row].flightNum
         return reuseCell!
     }
     

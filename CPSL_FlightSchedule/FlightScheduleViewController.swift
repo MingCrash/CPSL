@@ -45,10 +45,11 @@ class FlightScheduleViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         searchFS.delegate = self
+        searchResultView.delegate = self
+
         searchResultView.view.frame = CGRect(x: 0, y: 114.0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-114.0)
         searchHistoryView.view.frame = CGRect(x: 0, y: 114.0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-114.0)
         
-        searchResultView.searchResultsUpdater = self
         flightResult_Departure.delegate = self
         flightResult_Departure.dataSource = self
         flightResult_Departure.separatorStyle = .none
@@ -208,5 +209,10 @@ extension FlightScheduleViewController: SearchViewControllerResultUpdatingDelega
             }
         }
         searchResultView.tableView.reloadData()
+    }
+    func removeResultView(by selectedResult: FlightResultInfo) {
+        searchHistoryView.historySelection?.append(selectedResult)
+        searchResultView.view.removeFromSuperview()
+        searchFS.text = selectedResult.flightNum?.description
     }
 }
