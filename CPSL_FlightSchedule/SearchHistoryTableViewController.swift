@@ -8,9 +8,14 @@
 
 import UIKit
 
+@objc protocol responseToMainPageBySelectingHistory{
+    func response(by SelectingHistory: String)
+}
+
 class SearchHistoryTableViewController: UITableViewController {
 
-    var historySelection: [FlightResultInfo]? = nil
+    var historySelection: [String]? = []
+    var delegate: AnyObject? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,15 +55,20 @@ class SearchHistoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         var reuseCell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "SearchHistoryCellID")
         if reuseCell == nil {
             reuseCell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "SearchHistoryCellID")
         }else{
             reuseCell?.textLabel?.text = nil
-        }        
-        reuseCell?.textLabel?.text = historySelection?[indexPath.row].flightNum
+        }
+        reuseCell?.textLabel?.text = historySelection?[indexPath.row].description
         return reuseCell!
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if delegate != nil && (delegate?.responds(to: #selector(responseToMainPageBySelectingHistory.response(by:))))! {
+            delegate?.response(by: (historySelection?[indexPath.row].description)!)
+        }
+    }
+
 }

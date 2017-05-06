@@ -10,15 +10,14 @@ import Foundation
 import UIKit
 import CoreData
 
-
 let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 let entityName: String  = "FlightResultInfo"
-let searchText_KeyPath: String = "SearchTextKeyPath"
 
 class FlightScheduleViewController: UIViewController {
     let searchHistoryView = SearchHistoryTableViewController()
     let searchResultView = SearchResultViewController()
     var dataArray: [FlightResultInfo]? = nil
+    var filterArray: [FlightResultInfo]? = nil
     var contentLenght: Int? = nil
     
     @IBAction func SegmentSelector(_ sender: UISegmentedControl) {
@@ -46,6 +45,7 @@ class FlightScheduleViewController: UIViewController {
         setupNavigationBar()
         searchFS.delegate = self
         searchResultView.delegate = self
+        searchHistoryView.delegate = self
 
         searchResultView.view.frame = CGRect(x: 0, y: 114.0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-114.0)
         searchHistoryView.view.frame = CGRect(x: 0, y: 114.0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT-114.0)
@@ -57,7 +57,7 @@ class FlightScheduleViewController: UIViewController {
         flightResult_Arrival.dataSource = self
         flightResult_Arrival.separatorStyle = .none
         
-        setDefaultData()
+//        setDefaultData()
         let fetchRequet = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         fetchRequet.returnsObjectsAsFaults = false
         do {
@@ -103,7 +103,8 @@ class FlightScheduleViewController: UIViewController {
     }
     
     @objc func refreshHander() {
-        print("refresh")
+        flightResult_Arrival.reloadData()
+        flightResult_Departure.reloadData()
     }
         
     override func didReceiveMemoryWarning() {
@@ -120,13 +121,20 @@ extension FlightScheduleViewController: UITextFieldDelegate{
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         //get the lenght of the current content
         contentLenght = (textField.text?.characters.count)! + string.characters.count - range.length
-        searchResultView.currentSearchString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        let contentString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        searchResultView.currentSearchString = contentString
         searchResultView.updateSearchResults()
+        
+        filterArray = dataArray?.filter({
+            $0.flightNum?.contains(contentString) ?? false
+        })
+        
         if contentLenght != 0{
             cancelBtnOutlet.isHidden = false
             searchHistoryView.view.removeFromSuperview()
             view.addSubview(searchResultView.view)
         }else{
+            filterArray = dataArray
             searchResultView.view.removeFromSuperview()
             view.addSubview(searchHistoryView.view)
         }
@@ -162,22 +170,24 @@ extension FlightScheduleViewController: UITableViewDelegate,UITableViewDataSourc
                 cell?.flightNum.text = nil
                 cell?.flightInfo.text = nil
             }
-            cell?.time.text = formmtter.string(from: dataArray![indexPath.row].time! as Date)
-            cell?.endTime.text = formmtter.string(from: dataArray![indexPath.row].endtime! as Date)
-            cell?.flightNum.text = dataArray![indexPath.row].flightNum
-            cell?.flightInfo.text = dataArray![indexPath.row].flightInfo
-            return cell!
+
         }else if tableView.isEqual(flightResult_Departure){
             cell = tableView.dequeueReusableCell(withIdentifier: "FlightDepartureResultResuseID") as? FlightResultTableViewCell
             if cell == nil{
                 cell = FlightResultTableViewCell(style: .default, reuseIdentifier: "FlightDepartureResultResuseID")
+            }else{
+                //将从重用队列里面拿出来的cell的内容清空
+                cell?.time.text = nil
+                cell?.endTime.text = nil
+                cell?.flightNum.text = nil
+                cell?.flightInfo.text = nil
             }
-            cell?.time.text = formmtter.string(from: dataArray![indexPath.row].time! as Date)
-            cell?.endTime.text = formmtter.string(from: dataArray![indexPath.row].endtime! as Date)
-            cell?.flightNum.text = dataArray![indexPath.row].flightNum
-            cell?.flightInfo.text = dataArray![indexPath.row].flightInfo
-            return cell!
         }
+        
+        cell?.time.text = formmtter.string(from: filterArray![indexPath.row].time! as Date)
+        cell?.endTime.text = formmtter.string(from: filterArray![indexPath.row].endtime! as Date)
+        cell?.flightNum.text = filterArray![indexPath.row].flightNum
+        cell?.flightInfo.text = filterArray![indexPath.row].flightInfo
         
         if indexPath.row%2 == 0 {
             cell?.contentView.backgroundColor = UIColor(red: 248/256.0, green: 248/256.0, blue: 248/256.0, alpha: 1.0)
@@ -188,7 +198,7 @@ extension FlightScheduleViewController: UITableViewDelegate,UITableViewDataSourc
         return 65.0
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (dataArray?.count)!
+        return filterArray?.count ?? 0
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -199,20 +209,32 @@ extension FlightScheduleViewController: UITableViewDelegate,UITableViewDataSourc
     }
 }
 
-extension FlightScheduleViewController: SearchViewControllerResultUpdatingDelegate{
+extension FlightScheduleViewController: SearchViewControllerResultUpdatingDelegate,responseToMainPageBySelectingHistory{
     func updateSearchResultsForSearchController(){
         if contentLenght == 0 {
             searchResultView.filterDataAarry = nil
         }else{
             searchResultView.filterDataAarry = dataArray?.filter {
-                ($0.flightNum?.contains(searchResultView.currentSearchString!))!
+                $0.flightNum?.contains(searchResultView.currentSearchString!) ?? false
             }
         }
         searchResultView.tableView.reloadData()
     }
     func removeResultView(by selectedResult: FlightResultInfo) {
-        searchHistoryView.historySelection?.append(selectedResult)
+        for element in searchHistoryView.historySelection! {
+            if element == selectedResult.flightNum?.description {
+                break
+            }
+            searchHistoryView.historySelection?.append((selectedResult.flightNum?.description)!)
+        }
+        searchHistoryView.tableView.reloadData()
         searchResultView.view.removeFromSuperview()
         searchFS.text = selectedResult.flightNum?.description
+        flightResult_Arrival.reloadData()
+        flightResult_Departure.reloadData()
+    }
+    func response(by SelectingHistory: String) {
+        searchHistoryView.view.removeFromSuperview()
+        searchFS.text = SelectingHistory
     }
 }
