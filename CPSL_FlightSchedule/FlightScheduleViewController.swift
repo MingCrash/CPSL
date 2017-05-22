@@ -57,7 +57,7 @@ class FlightScheduleViewController: UIViewController {
         flightResult_Arrival.dataSource = self
         flightResult_Arrival.separatorStyle = .none
         
-//        setDefaultData()
+        setDefaultData()
         let fetchRequet = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         fetchRequet.returnsObjectsAsFaults = false
         do {
